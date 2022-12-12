@@ -2,12 +2,10 @@
 ## Introduction
 - QFM SDK (Q-Face Module Software Development Kit) is a set of tools and libraries for developing applications for Q-Face modules manufactured by Suprema AI Inc.
 
-## Revision History
-- 2022.11.21 : v0.1.2 released
-  - linux library files have been updated. (arm, arm64 and x86_64 based linux OS supported)
-  - demo application is updated.
+## Release Notes
+- https://github.com/suprema-ai/qfm-sdk/releases
 
-
+## Contents of the SDK
 ```
 .
 ├── README.md
