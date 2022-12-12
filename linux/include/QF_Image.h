@@ -16,6 +16,9 @@
 #define __QFM_SDK_IMAGE_H__
 
 
-typedef BYTE* QFImage;
+typedef struct{
+    UINT32 length;
+    BYTE *data;
+}QFImage;
 
 #endif
