@@ -149,6 +149,9 @@ extern "C"
     //    
     QF_API QF_RET_CODE QF_ReadImage(QFImage *image);
     QF_API QF_RET_CODE QF_ScanImage(QFImage *image);
+    QF_API QF_RET_CODE QF_SaveImage(const char *fileName, QFImage *image);
+    QF_API void QF_ReleaseImage(QFImage *image);
+
 #ifdef _WIN32
     QF_API HBITMAP QF_ConvertToBitmap(QFImage *image);
 #endif
