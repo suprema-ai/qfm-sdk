@@ -10,6 +10,9 @@
 .
 ├── README.md
 ├── Suprema Q-Face SDK Licensing Agreement.md
+├── doc
+│   ├── html (API Reference based on Doxygen)
+│   └── QFM_SDK_Manual_v0.2.0.pdf
 └── linux
     ├── demo
     │   ├── arm
@@ -40,9 +43,9 @@
     │   ├── QF_SysParameter.h
     │   ├── QF_Template.h
     │   ├── QF_Upgrade.h
+    |   ├── QF_UserFeedback.h
     │   ├── QF_Verify.h
     │   ├── Version.h
-    │   └── Version.h.in
     └── lib
         ├── arm
         │   └── release

@@ -1,15 +1,7 @@
 /**
- *  	QFM SDK Main API
- */
-
-/*
- *  Copyright (c) 2021-current Suprema AI Inc. All Rights Reserved.
- *
- *  This software is the confidential and proprietary information of
- *  Suprema AI Inc. ("Confidential Information").  You shall not
- *  disclose such Confidential Information and shall use it only in
- *  accordance with the terms of the license agreement you entered into
- *  with Suprema.
+ * @file QF_API.h
+ * @brief QFM SDK API
+ * @copyright This software is the confidential and proprietary information of Suprema AI Inc. ("Confidential Information").  You shall not disclose such Confidential Information and shall use it only in accordance with the terms of the license agreement you entered into with Suprema AI Inc.
  */
 
 #ifndef __QFM_SDK_API__
@@ -38,6 +30,8 @@
 #include "QF_Serial.h"
 #include "QF_Upgrade.h"
 #include "QF_Socket.h"
+#include "QF_Misc.h"
+#include "QF_UserFeedback.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -51,19 +45,20 @@ extern "C"
     QF_API const char* QF_GetSDKVersionString();
 
     //
-    // Initialize serial communication
+    // Serial communication API and Socket API
     //
     QF_API QF_RET_CODE QF_InitCommPort(const char *commPort, int baudrate, BOOL asciiMode);
     QF_API QF_RET_CODE QF_CloseCommPort();
-    QF_API QF_RET_CODE QF_InitSocket(const char *inetAddr, int port, BOOL asciiMode);
-    QF_API QF_RET_CODE QF_CloseSocket();
     QF_API void QF_Reconnect();
     QF_API QF_RET_CODE QF_SetBaudrate(int baudrate);
     QF_API void QF_SetAsciiMode(BOOL asciiMode);
+    QF_API QF_RET_CODE QF_InitSocket(const char *inetAddr, int port, BOOL asciiMode);
+    QF_API QF_RET_CODE QF_CloseSocket();
+    QF_API QF_RET_CODE QF_SetInitSocketTimeout(int timeout);
 
 
     //
-    // Callback functions for the user-defined UART handler (Android)
+    // Callback functions for the user-defined UART handler (for Android)
     //
 
     // Set baudrate to the host handler of the user-defined UART handler
@@ -74,7 +69,7 @@ extern "C"
     QF_API void QF_SetWriteSerialCallback(int (*Callback)(BYTE *, int, int));
 
     //
-    // Basic packet interface
+    // Basic packet interface (Low-Level Packet API)
     //
     QF_API QF_RET_CODE QF_SendPacket(BYTE command, UINT32 param, UINT32 size, BYTE flag, int timeout);
     QF_API QF_RET_CODE QF_ReceivePacket(BYTE *packet, int timeout);
@@ -92,33 +87,32 @@ extern "C"
     QF_API int QF_GetDefaultPacketSize();
 
     //
-    // Generic command interface
+    // Generic command interface API
     //
-    
-    QF_API void QF_SetGenericCommandTimeout(int timeout);
-    QF_API void QF_SetInputCommandTimeout(int timeout);
-    QF_API int QF_GetGenericCommandTimeout();
-    QF_API int QF_GetInputCommandTimeout();
     QF_API QF_RET_CODE QF_Command(BYTE command, UINT32 *param, UINT32 *size, BYTE *flag);
     QF_API QF_RET_CODE QF_CommandEx(BYTE command, UINT32 *param, UINT32 *size, BYTE *flag, BOOL (*msgCallback)(BYTE));
     QF_API QF_RET_CODE QF_CommandSendData(BYTE command, UINT32 *param, UINT32 *size, BYTE *flag, BYTE *data, UINT32 dataSize);
     QF_API QF_RET_CODE QF_CommandSendDataEx(BYTE command, UINT32 *param, UINT32 *size, BYTE *flag, BYTE *data, UINT32 dataSize, BOOL (*msgCallback)(BYTE), BOOL waitUserInput);
     QF_API QF_RET_CODE QF_Cancel(BOOL receivePacket);
+    QF_API void QF_SetGenericCommandTimeout(int timeout);
+    QF_API void QF_SetInputCommandTimeout(int timeout);
+    QF_API int QF_GetGenericCommandTimeout();
+    QF_API int QF_GetInputCommandTimeout();
     QF_API QF_RET_CODE QF_GetErrorCode(QF_PROTOCOL_RET_CODE retCode);
 
     //
-    // Module information
+    // Module API
     //
     QF_API QF_RET_CODE QF_GetModuleInfo(QF_MODULE_TYPE *type, QF_MODULE_VERSION *version, QF_HARDWARE_REVISION *hardware_revision);
-    QF_API char *QF_GetModuleString(QF_MODULE_TYPE type, QF_MODULE_VERSION version, QF_HARDWARE_REVISION hardware_revision);
+    QF_API const char *QF_GetModuleString(QF_MODULE_TYPE type, QF_MODULE_VERSION version, QF_HARDWARE_REVISION hardware_revision);
     QF_API QF_RET_CODE QF_SearchModule(const char *port, int *baudrate, BOOL *asciiMode, QF_PROTOCOL *protocol, UINT32 *moduleID, void (*callback)(const char *comPort, int baudrate));
     QF_API QF_RET_CODE QF_SearchModuleBySocket(const char *inetAddr, int tcpPort, BOOL *asciiMode, QF_PROTOCOL *protocol, UINT32 *moduleID);
-
-        
+    QF_API QF_RET_CODE QF_Upgrade(const char *firmwareFilename, int dataPacketSize);
     QF_API QF_RET_CODE QF_Reset();
-    
+    QF_API QF_RET_CODE QF_GetFirmwareVersion(int *major, int *minor, int *revision);
+
     //
-    // System parameters
+    // System parameter API
     //
     QF_API void QF_InitSysParameter();
     QF_API QF_RET_CODE QF_GetSysParameter(QF_SYS_PARAM parameter, UINT32 *value);
@@ -126,9 +120,10 @@ extern "C"
     QF_API QF_RET_CODE QF_GetMultiSysParameter(int parameterCount, QF_SYS_PARAM *parameters, UINT32 *values);
     QF_API QF_RET_CODE QF_SetMultiSysParameter(int parameterCount, QF_SYS_PARAM *parameters, UINT32 *values);
     QF_API QF_RET_CODE QF_Save();
+    QF_API QF_RET_CODE QF_ResetSysParameter();
 
     //
-    // Template management
+    // Template management API
     //
     QF_API QF_RET_CODE QF_GetNumOfTemplate(UINT32 *numOfTemplate);
     QF_API QF_RET_CODE QF_GetMaxNumOfTemplate(UINT32 *maxNumOfTemplate);
@@ -136,72 +131,77 @@ extern "C"
     QF_API QF_RET_CODE QF_GetAllUserInfoEx(QFUserInfoEx *userInfo, UINT32 *numOfUser, UINT32 *numOfTemplate);
     QF_API void QF_SortUserInfo(QFUserInfo *userInfo, int numOfUser);
     QF_API void QF_SetUserInfoCallback(void (*callback)(int index, int numOfTemplate));
-    QF_API QF_RET_CODE QF_SaveDB(const char *fileName);
-    QF_API QF_RET_CODE QF_LoadDB(const char *fileName);
     QF_API QF_RET_CODE QF_CheckTemplate(UINT32 userID, UINT32 *numOfTemplate);
     QF_API QF_RET_CODE QF_ReadTemplate(UINT32 userID, UINT32 *numOfTemplate, BYTE *templateData);
     QF_API QF_RET_CODE QF_ReadOneTemplate(UINT32 userID, int subID, BYTE *templateData);
     QF_API void QF_SetScanCallback(void (*Callback)(BYTE));
     QF_API QF_RET_CODE QF_ScanTemplate(BYTE *templateData, UINT32 *templateSize, UINT32 *imageQuality);
+    QF_API QF_RET_CODE QF_SaveDB(const char *fileName);
+    QF_API QF_RET_CODE QF_LoadDB(const char *fileName);
+    QF_API QF_RET_CODE QF_ResetDB();
 
     //
-    // Image
+    // Image Manipulation API
     //    
     QF_API QF_RET_CODE QF_ReadImage(QFImage *image);
     QF_API QF_RET_CODE QF_ScanImage(QFImage *image);
     QF_API QF_RET_CODE QF_SaveImage(const char *fileName, QFImage *image);
-    QF_API void QF_ReleaseImage(QFImage *image);
+    QF_API QF_RET_CODE QF_ReleaseImage(QFImage *image);
 
 #ifdef _WIN32
     QF_API HBITMAP QF_ConvertToBitmap(QFImage *image);
 #endif
 
     //
-    // Identify
+    // User Feedback API
     //
-    QF_API void QF_SetIdentifyCallback(void (*Callback)(BYTE));
+    QF_API void QF_SetUserFeedbackCallback(void (*Callback)(UINT32 feedback));
+    QF_API void QF_SetUserFeedbackDataCallback(void (*Callback)(const UserFeedbackData *feedbackData, void *userData), void *userData);
+
+    //
+    // Identify API
+    //
     QF_API QF_RET_CODE QF_Identify(UINT32 *userID, BYTE *subID);
     QF_API QF_RET_CODE QF_IdentifyTemplate(UINT32 templateSize, BYTE *templateData, UINT32 *userID, BYTE *subID);
     QF_API QF_RET_CODE QF_IdentifyImage(UINT32 imageSize, BYTE *imageData, UINT32 *userID, BYTE *subID);
+    QF_API void QF_SetIdentifyCallback(void (*Callback)(BYTE));
 
     //
-    // Verify
+    // Verify API
     //
-    QF_API void QF_SetVerifyCallback(void (*Callback)(BYTE));
     QF_API QF_RET_CODE QF_Verify(UINT32 userID, BYTE *subID);
     QF_API QF_RET_CODE QF_VerifyTemplate(UINT32 templateSize, BYTE *templateData, UINT32 userID, BYTE *subID);
     QF_API QF_RET_CODE QF_VerifyHostTemplate(UINT32 numOfTemplate, UINT32 templateSize, BYTE *templateData);
     QF_API QF_RET_CODE QF_VerifyImage(UINT32 imageSize, BYTE *imageData, UINT32 userID, BYTE *subID);
+    QF_API void QF_SetVerifyCallback(void (*Callback)(BYTE));
 
     //
-    // Enroll
+    // Enroll API
     //
-    QF_API void QF_SetEnrollCallback(void (*Callback)(BYTE errCode, QF_ENROLL_MODE enrollMode, int numOfSuccess));
     QF_API QF_RET_CODE QF_Enroll(UINT32 userID, QF_ENROLL_OPTION option, UINT32 *enrollID, UINT32 *imageQuality);
     QF_API QF_RET_CODE QF_EnrollTemplate(UINT32 userID, QF_ENROLL_OPTION option, UINT32 templateSize, BYTE *templateData, UINT32 *enrollID);
     QF_API QF_RET_CODE QF_EnrollMultipleTemplates(UINT32 userID, QF_ENROLL_OPTION option, int numOfTemplate, UINT32 templateSize, BYTE *templateData, UINT32 *enrollID);
     QF_API QF_RET_CODE QF_EnrollImage(UINT32 userID, QF_ENROLL_OPTION option, UINT32 imageSize, BYTE *imageData, UINT32 *enrollID, UINT32 *imageQuality);
+    QF_API void QF_SetEnrollCallback(void (*Callback)(BYTE errCode, QF_ENROLL_MODE enrollMode, int numOfSuccess));
 
     //
-    // Delete
+    // Delete API
     //
-    QF_API void QF_SetDeleteCallback(void (*Callback)(BYTE));
     QF_API QF_RET_CODE QF_Delete(UINT32 userID);
     QF_API QF_RET_CODE QF_DeleteOneTemplate(UINT32 userID, int subID);
     QF_API QF_RET_CODE QF_DeleteMultipleTemplates(UINT32 startUserID, UINT32 lastUserID, int *deletedUserID);
     QF_API QF_RET_CODE QF_DeleteAll();
+    QF_API void QF_SetDeleteCallback(void (*Callback)(BYTE));
+
+    // Misc API
+    QF_API QF_RET_CODE QF_ReadQRCode(char* decodedText, int *decodedTextLength);
 
 
     //
-    // Upgrade
+    // Deprecated API (Deprecated since v0.1.5. But still available for backward compatibility.)
     //
-    QF_API QF_RET_CODE QF_Upgrade(const char *firmwareFilename, int dataPacketSize);
-
-    //
-    // FileSystem (in QF_Upgrade.c)
-    //
-    QF_API QF_RET_CODE QF_FormatUserDatabase();
     QF_API QF_RET_CODE QF_ResetSystemConfiguration();
+    QF_API QF_RET_CODE QF_FormatUserDatabase();
 
 
 #ifdef __cplusplus

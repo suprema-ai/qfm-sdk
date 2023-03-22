@@ -1,15 +1,7 @@
 /**
- *  	Wrapper API for serial communication
- */
-
-/*  
- *  Copyright (c) 2021-current Suprema AI Inc. All Rights Reserved.
- * 
- *  This software is the confidential and proprietary information of 
- *  Suprema AI Inc. ("Confidential Information").  You shall not
- *  disclose such Confidential Information and shall use it only in
- *  accordance with the terms of the license agreement you entered into
- *  with Suprema.
+ * @file QF_Serial.h
+ * @brief Serial API
+ * @copyright This software is the confidential and proprietary information of Suprema AI Inc. ("Confidential Information").  You shall not disclose such Confidential Information and shall use it only in accordance with the terms of the license agreement you entered into with Suprema AI Inc.
  */
 
 #ifndef __QFM_SDK_SERIAL_H__
