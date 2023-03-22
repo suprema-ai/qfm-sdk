@@ -1,15 +1,7 @@
 /**
- *  	User & Template Management
- */
-
-/*  
- *  Copyright (c) 2021-current Suprema AI Inc. All Rights Reserved.
- * 
- *  This software is the confidential and proprietary information of 
- *  Suprema AI Inc. ("Confidential Information").  You shall not
- *  disclose such Confidential Information and shall use it only in
- *  accordance with the terms of the license agreement you entered into
- *  with Suprema.
+ * @file QF_Template.h
+ * @brief User & Template Management API
+ * @copyright This software is the confidential and proprietary information of Suprema AI Inc. ("Confidential Information").  You shall not disclose such Confidential Information and shall use it only in accordance with the terms of the license agreement you entered into with Suprema AI Inc.
  */
 
 #ifndef __QFM_SDK_TEMPLATE_H__
@@ -25,35 +17,40 @@
 
 typedef struct
 {
+	/*! User ID */
 	UINT32 userID;
+	/*! Number of template */
 	BYTE numOfTemplate;
+	/*! Reserved byte (0) */
 	BYTE reserved_0;
+	/*! Reserved byte (1) */
 	BYTE reserved_1;
+	/*! Reserved byte (2) */
 	BYTE reserved_2;
 } QFUserInfo;
 
 typedef struct
 {
+	/*! User ID */
 	UINT32 userID;
+	/*! Checksum */
 	UINT32 checksum[MAXIMUM_NUM_OF_TEMPLATE_PER_USER];
+	/*! Number of template */
 	BYTE numOfTemplate;
+	/*! Template property */
 	BYTE templateProperty : 4;
+	/*! Encryption mode */
 	BYTE encryptionMode : 4;
+	/*! Sub ID */
 	BYTE subID : 4;
+	/*! Mast */
 	BYTE mask : 4;
+	/*! Reserved byte (0)*/
 	BYTE reserved_0;
 } QFUserInfoEx;
 
 #define QF_VALID_TEMPLATE_DB 0x1f2f3f4f
 
-
-typedef struct
-{
-	UINT32 userID;
-	UINT32 userLevel; // entLimit << 24 | securityLevel << 16 | authMode << 8 | adminLevel
-	UINT32 numOfTemplate;
-	UINT32 checksum;
-} QFUserItemHeader;
 
 #ifdef __cplusplus
 extern "C"
