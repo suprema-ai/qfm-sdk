@@ -36,6 +36,8 @@
     │   ├── QF_Error.h
     │   ├── QF_Identify.h
     │   ├── QF_Image.h
+    │   ├── QF_Key.h
+    │   ├── QF_Misc.h
     │   ├── QF_Module.h
     │   ├── QF_Packet.h
     │   ├── QF_Serial.h
@@ -45,7 +47,7 @@
     │   ├── QF_Upgrade.h
     |   ├── QF_UserFeedback.h
     │   ├── QF_Verify.h
-    │   ├── Version.h
+    │   ├── QF_Version.h
     └── lib
         ├── arm
         │   └── release

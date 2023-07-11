@@ -37,7 +37,7 @@ extern "C"
 	int QF_ClearSerialWriteBuffer();
 	void QF_CancelReadSerial();
 	void QF_CancelWriteSerial();
-	int QF_GetBaudrate();
+	QF_API int QF_GetBaudrate();
 
 	void QF_SetSerialWriteCallback(void (*Callback)(int writtenLen, int totalSize));
 	void QF_SetSerialReadCallback(void (*Callback)(int readLen, int totalSize));

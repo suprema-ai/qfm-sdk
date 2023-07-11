@@ -69,8 +69,11 @@ typedef enum
 	/*! Rotate image */
 	QF_SYS_ROTATE_IMAGE = 0x77,
 
-	/*! Sensitivity */
+	/*! Sensitivity (Deprecated since SDK v0.3.1) */
 	QF_SYS_SENSITIVITY = 0x80,
+
+	/*! Horizontal Sensitivity */
+	QF_SYS_HORIZONTAL_SENSITIVITY = 0x80,
 
 	/*! Image quality */
 	QF_SYS_IMAGE_QUALITY = 0x81,
@@ -111,11 +114,21 @@ typedef enum
 	/*! Kernel version */
 	QF_SYS_KERNEL_VERSION = 0xa3,
 
+	/*! Packet security */
+	QF_SYS_PACKET_SECURITY = 0xa5,
+
 	/*! Mask check level */
 	QF_SYS_MASK_CHECK_LEVEL = 0xb1,
 	
 	/*! User feedback */
 	QF_SYS_USER_FEEDBACK = 0xb2,
+
+	/*! Vertical sensitivity */
+	QF_SYS_VERTICAL_SENSITIVITY = 0xb3,
+
+	/*! QFace engine version */
+	QF_SYS_QFACE_ENGINE_VERSION = 0xb4,
+	
 	QF_SYS_RESERVED = 0xff,
 } QF_SYS_PARAM;
 

@@ -7,10 +7,6 @@
 #ifndef __QFM_SDK_SOCKET_H__
 #define __QFM_SDK_SOCKET_H__
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
 #include "QF_API.h"
 
 #ifdef __cplusplus

@@ -7,10 +7,6 @@
 #ifndef __QFM_SDK_COMMAND_H__
 #define __QFM_SDK_COMMAND_H__
 
-#ifdef _WIN32
-#include <windows.h>
-#endif // _WIN32
-
 //
 // Command definitions
 //
@@ -34,6 +30,7 @@ typedef enum
 	QF_COM_VH = 0x22,
 	QF_COM_FP = 0x23,
 	QF_COM_DP = 0x24,
+	QF_COM_PKE = 0x2A,
 	QF_COM_KW = 0x34,
 	QF_COM_KS = 0x35,
 	QF_COM_GR = 0x36,
@@ -41,6 +38,7 @@ typedef enum
 	QF_COM_GC = 0x38,
 	QF_COM_GD = 0x39,
 	QF_COM_QR = 0x51,
+	QF_COM_SC = 0x52,
 	QF_COM_CA = 0x60,
 	QF_COM_UG = 0x62,
 	QF_COM_EIX = 0x80,
@@ -52,6 +50,7 @@ typedef enum
 	QF_COM_ETX = 0x87,
 	QF_COM_RTX = 0x89,
 	QF_COM_RS = 0xD0,
+	QF_COM_DFU = 0xDF,
 	QF_COM_FF = 0xFF,
 	QF_COM_FR = 0xFA,
 } QF_COMMAND;

@@ -7,11 +7,6 @@
 #ifndef __QFM_SDK_API__
 #define __QFM_SDK_API__
 
-#ifdef _WIN32
-#include <windows.h>
-#include <winsock.h>
-#endif // _WIN32
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -32,6 +27,7 @@
 #include "QF_Socket.h"
 #include "QF_Misc.h"
 #include "QF_UserFeedback.h"
+#include "QF_Key.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -105,11 +101,14 @@ extern "C"
     //
     QF_API QF_RET_CODE QF_GetModuleInfo(QF_MODULE_TYPE *type, QF_MODULE_VERSION *version, QF_HARDWARE_REVISION *hardware_revision);
     QF_API const char *QF_GetModuleString(QF_MODULE_TYPE type, QF_MODULE_VERSION version, QF_HARDWARE_REVISION hardware_revision);
+    QF_API const char *QF_GetModuleString2();
     QF_API QF_RET_CODE QF_SearchModule(const char *port, int *baudrate, BOOL *asciiMode, QF_PROTOCOL *protocol, UINT32 *moduleID, void (*callback)(const char *comPort, int baudrate));
     QF_API QF_RET_CODE QF_SearchModuleBySocket(const char *inetAddr, int tcpPort, BOOL *asciiMode, QF_PROTOCOL *protocol, UINT32 *moduleID);
     QF_API QF_RET_CODE QF_Upgrade(const char *firmwareFilename, int dataPacketSize);
+    QF_API QF_RET_CODE QF_UpdatePatch(const char *filename, int dataPacketSize);
     QF_API QF_RET_CODE QF_Reset();
     QF_API QF_RET_CODE QF_GetFirmwareVersion(int *major, int *minor, int *revision);
+    QF_API QF_RET_CODE QF_EnterDFUMode();
 
     //
     // System parameter API
@@ -120,7 +119,7 @@ extern "C"
     QF_API QF_RET_CODE QF_GetMultiSysParameter(int parameterCount, QF_SYS_PARAM *parameters, UINT32 *values);
     QF_API QF_RET_CODE QF_SetMultiSysParameter(int parameterCount, QF_SYS_PARAM *parameters, UINT32 *values);
     QF_API QF_RET_CODE QF_Save();
-    QF_API QF_RET_CODE QF_ResetSysParameter();
+    QF_API QF_RET_CODE QF_ResetSysParameters();
 
     //
     // Template management API
@@ -132,6 +131,7 @@ extern "C"
     QF_API void QF_SortUserInfo(QFUserInfo *userInfo, int numOfUser);
     QF_API void QF_SetUserInfoCallback(void (*callback)(int index, int numOfTemplate));
     QF_API QF_RET_CODE QF_CheckTemplate(UINT32 userID, UINT32 *numOfTemplate);
+    QF_API QF_RET_CODE QF_CheckTemplate2(BYTE* templateData, UINT32 *userID);
     QF_API QF_RET_CODE QF_ReadTemplate(UINT32 userID, UINT32 *numOfTemplate, BYTE *templateData);
     QF_API QF_RET_CODE QF_ReadOneTemplate(UINT32 userID, int subID, BYTE *templateData);
     QF_API void QF_SetScanCallback(void (*Callback)(BYTE));
@@ -196,12 +196,34 @@ extern "C"
     // Misc API
     QF_API QF_RET_CODE QF_ReadQRCode(char* decodedText, int *decodedTextLength);
 
+    //
+    // Key management API
+    //
+    QF_API QF_RET_CODE QF_ChangeKey(QF_KEY_OPTION option, BYTE *currentKey, BYTE *newKey);
+    QF_API QF_RET_CODE QF_ResetKey(QF_KEY_OPTION option);
+
+    //
+    // Secure Packet Protocol
+    //
+    QF_API BOOL QF_GetSecurePacketProtocolMode();
+    QF_API BOOL QF_SetSecurePacketProtocolMode(BOOL securePacketProtocolMode, BYTE *secureKey);
+    QF_API void QF_SetSecureCode(BYTE *secureCode);
+    QF_API QF_RET_CODE QF_CreateRandomSecureKey();
+    QF_API QF_RET_CODE QF_CreateKeyPair(BYTE *publicKey_host, BYTE *privateKey_host);
+    QF_API void QF_GetSecureKey(BYTE *secureKey, BYTE *publicKey_module, BYTE *privateKey_host);
+    QF_API QF_RET_CODE QF_PublicKeyExchange(BYTE *publicKey_host, BYTE *publicKey_module);
+
 
     //
     // Deprecated API (Deprecated since v0.1.5. But still available for backward compatibility.)
     //
     QF_API QF_RET_CODE QF_ResetSystemConfiguration();
     QF_API QF_RET_CODE QF_FormatUserDatabase();
+
+    //
+    // Deprecated API (Deprecated since v0.3.3. But still available for backward compatibility.)
+    //
+    QF_API QF_RET_CODE QF_ResetSystemParameter();
 
 
 #ifdef __cplusplus
