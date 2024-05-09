@@ -202,6 +202,7 @@ extern "C"
     // Key management API
     //
     QF_API QF_RET_CODE QF_ChangeKey(QF_KEY_OPTION option, BYTE *currentKey, BYTE *newKey);
+    QF_API QF_RET_CODE QF_VerifyKey(QF_KEY_OPTION option, BYTE *currentKey);
     QF_API QF_RET_CODE QF_ResetKey(QF_KEY_OPTION option);
 
     //

@@ -53,6 +53,12 @@ typedef enum
     /*! reset encryption key */
     QF_KEY_OPTION_RESET_ENCRYPTION_KEY = 0xCC,
 
+    /*! verify encryption key */
+    QF_KEY_OPTION_VERIFY_ENCRYPTION_KEY = 0xD4,
+
+    /*! verify initialization vector */
+    QF_KEY_OPTION_VERIFY_INITIALIZATION_VECTOR = 0xD5,
+
 } QF_KEY_OPTION;
 
 typedef enum
