@@ -20,10 +20,10 @@ typedef struct
 } SysParameter;
 
 /* System Parameter */
-extern SysParameter s_SysParameter[];
+QF_API extern SysParameter s_SysParameter[];
 
 /* System Parameter List (String Name)*/
-extern char s_SysParameterList[][30];
+QF_API extern char s_SysParameterList[][30];
 
 /**
  * @brief Parameter ID
@@ -128,6 +128,21 @@ typedef enum
 
 	/*! QFace engine version */
 	QF_SYS_QFACE_ENGINE_VERSION = 0xb4,
+
+	/*! Patch version */
+	QF_SYS_PATCH_VERSION = 0xb5,
+
+	/*! Enrollment restriction */
+	QF_SYS_ENROLLMENT_RESTRICTION = 0xb6,
+
+	/*! Number of user */
+	QF_SYS_NUMBER_OF_USER = 0xb7,
+
+	/*! User Detection */
+	QF_SYS_USER_DETECTION = 0xb8,
+
+	/*! Screen Orientation */
+	QF_SYS_SCREEN_ORIENTATION = 0xb9,
 	
 	QF_SYS_RESERVED = 0xff,
 } QF_SYS_PARAM;

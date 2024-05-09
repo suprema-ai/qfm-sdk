@@ -50,6 +50,8 @@ typedef enum
 	QF_COM_ETX = 0x87,
 	QF_COM_RTX = 0x89,
 	QF_COM_RS = 0xD0,
+	QF_COM_LDB = 0xD3,
+	QF_COM_SDB = 0xD4,
 	QF_COM_DFU = 0xDF,
 	QF_COM_FF = 0xFF,
 	QF_COM_FR = 0xFA,

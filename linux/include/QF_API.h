@@ -108,6 +108,7 @@ extern "C"
     QF_API QF_RET_CODE QF_UpdatePatch(const char *filename, int dataPacketSize);
     QF_API QF_RET_CODE QF_Reset();
     QF_API QF_RET_CODE QF_GetFirmwareVersion(int *major, int *minor, int *revision);
+    QF_API QF_RET_CODE QF_GetPatchVersion(int *patchVersion);
     QF_API QF_RET_CODE QF_EnterDFUMode();
 
     //
@@ -139,6 +140,7 @@ extern "C"
     QF_API QF_RET_CODE QF_SaveDB(const char *fileName);
     QF_API QF_RET_CODE QF_LoadDB(const char *fileName);
     QF_API QF_RET_CODE QF_ResetDB();
+    QF_API QF_RET_CODE QF_GetNumOfUser(UINT32 *numOfUser);
 
     //
     // Image Manipulation API
