@@ -15,5 +15,4 @@
 #define QFM_SDK_PRODUCT_VERSION 0,6,0
 #define QFM_SDK_FILE_VERSION_STR "0.6.0"
 
-
 #endif
